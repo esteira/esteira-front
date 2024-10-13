@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
 import { motion } from "framer-motion";
 
 export default function Component() {
@@ -22,6 +21,7 @@ export default function Component() {
               width={60}
               height={60}
               className="mb-4 sm:mb-6"
+              onClick={() => window.location.href = 'https://open.spotify.com'}
             />
           </motion.div>
           <h1 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-6">
