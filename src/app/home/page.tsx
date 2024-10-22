@@ -4,7 +4,6 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function Component() {
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black p-4">
       <motion.div
@@ -21,7 +20,7 @@ export default function Component() {
               width={60}
               height={60}
               className="mb-4 sm:mb-6"
-              onClick={() => window.location.href = 'https://open.spotify.com'}
+              onClick={() => window.location.href = `${process.env.SPOTIFY_URL}`}
             />
           </motion.div>
           <h1 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-6">
@@ -34,8 +33,9 @@ export default function Component() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className={`w-full bg-green-600 hover:bg-green-500 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-full font-semibold text-base sm:text-lg transition-all duration-300`}
+            onClick={() => window.location.href = `${process.env.NEXT_PUBLIC_BACK_URL}${process.env.NEXT_PUBLIC_LOGIN}`}
           >
-            Login with Spotify
+            Deu certo
           </motion.button>
         </div>
       </motion.div>
