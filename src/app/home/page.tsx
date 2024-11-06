@@ -85,7 +85,7 @@ export default function Home() {
             className={`w-full bg-green-600 hover:bg-green-500 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-full font-semibold text-base sm:text-lg transition-all duration-300`}
             onClick={() => console.log('Gênero selecionado:', selectedGenre)}
           >
-            Confirmar Seleção
+            Confirmar
           </motion.button>
         </div>
       </motion.div>
