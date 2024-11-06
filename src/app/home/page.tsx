@@ -1,9 +1,33 @@
-"use client";
+'use client'
 
-import Image from "next/image";
-import { motion } from "framer-motion";
+import { useState, useEffect } from 'react'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
 
-export default function Component() {
+export default function Home() {
+  const [height, setHeight] = useState('')
+  const [speed, setSpeed] = useState('')
+  const [genres, setGenres] = useState<string[]>([])
+  const [selectedGenre, setSelectedGenre] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    fetchGenres()
+  }, [])
+
+  const fetchGenres = async () => {
+    setIsLoading(true)
+    try {
+      const response = await fetch('')
+      const data = await response.json()
+      setGenres(data.genres)
+    } catch (error) {
+      console.error('Erro ao buscar gêneros:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black p-4">
       <motion.div
@@ -20,25 +44,51 @@ export default function Component() {
               width={60}
               height={60}
               className="mb-4 sm:mb-6"
-              onClick={() => window.location.href = `${process.env.SPOTIFY_URL}`}
             />
           </motion.div>
           <h1 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-6">
-            Welcome to Hayai
+            Hayai Home
           </h1>
-          <p className="text-sm sm:text-base text-gray-300 mb-6 sm:mb-8">
-            Log in to continue to your account
-          </p>
+          <input
+            type="number"
+            placeholder="Altura"
+            value={height}
+            onChange={(e) => setHeight(e.target.value)}
+            className="w-full bg-white/20 text-white placeholder-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+          <input
+            type="number"
+            placeholder="Velocidade"
+            value={speed}
+            onChange={(e) => setSpeed(e.target.value)}
+            className="w-full bg-white/20 text-white placeholder-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+          <select
+            value={selectedGenre}
+            onChange={(e) => setSelectedGenre(e.target.value)}
+            className="w-full bg-white/20 text-white rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+          >
+            <option value="">Selecione um gênero musical</option>
+            {isLoading ? (
+              <option value="" disabled>Carregando gêneros...</option>
+            ) : (
+              genres.map((genre) => (
+                <option key={genre} value={genre}>
+                  {genre}
+                </option>
+              ))
+            )}
+          </select>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className={`w-full bg-green-600 hover:bg-green-500 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-full font-semibold text-base sm:text-lg transition-all duration-300`}
-            onClick={() => window.location.href = `${process.env.NEXT_PUBLIC_BACK_URL}${process.env.NEXT_PUBLIC_LOGIN}`}
+            onClick={() => console.log('Gênero selecionado:', selectedGenre)}
           >
-            Deu certo
+            Confirmar Seleção
           </motion.button>
         </div>
       </motion.div>
     </div>
-  );
+  )
 }
