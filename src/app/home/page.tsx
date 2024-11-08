@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { getSpotifyGenres } from '@/service/genres.service'
 
 export default function Home() {
   const [height, setHeight] = useState('')
@@ -18,8 +19,8 @@ export default function Home() {
   const fetchGenres = async () => {
     setIsLoading(true)
     try {
-      const response = await fetch('')
-      const data = await response.json()
+      const response = await getSpotifyGenres()
+      const data = await response
       setGenres(data.genres)
     } catch (error) {
       console.error('Erro ao buscar gêneros:', error)

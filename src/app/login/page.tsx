@@ -20,7 +20,7 @@ export default function Component() {
               width={60}
               height={60}
               className="mb-4 sm:mb-6"
-              onClick={() => window.location.href = `${process.env.SPOTIFY_URL}`}
+              onClick={() => window.location.href = `${process.env.NEXT_PUBLIC_SPOTIFY_URL}`}
             />
           </motion.div>
           <h1 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-6">
