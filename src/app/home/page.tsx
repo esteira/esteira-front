@@ -20,8 +20,7 @@ export default function Home() {
     setIsLoading(true)
     try {
       const response = await getSpotifyGenres()
-      const data = await response
-      setGenres(data.genres)
+      setGenres(response?.genres)
     } catch (error) {
       console.error('Erro ao buscar gêneros:', error)
     } finally {
@@ -73,7 +72,7 @@ export default function Home() {
             {isLoading ? (
               <option value="" disabled>Carregando gêneros...</option>
             ) : (
-              genres.map((genre) => (
+              genres?.map((genre) => (
                 <option key={genre} value={genre}>
                   {genre}
                 </option>
