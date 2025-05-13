@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import {useState, useEffect} from 'react'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
-import { getSpotifyGenres } from '@/service/genres.service'
+import {motion} from 'framer-motion'
+import {getSpotifyGenres} from '@/service/genres.service'
 
 export default function Home() {
   const [height, setHeight] = useState('')
@@ -13,31 +13,31 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    fetchGenres()
+    (async () => {
+      setIsLoading(true)
+      try {
+        const response = await getSpotifyGenres()
+        setGenres(response?.genres)
+      } catch (error) {
+        console.error('Erro ao buscar gêneros:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    })()
   }, [])
 
-  const fetchGenres = async () => {
-    setIsLoading(true)
-    try {
-      const response = await getSpotifyGenres()
-      setGenres(response?.genres)
-    } catch (error) {
-      console.error('Erro ao buscar gêneros:', error)
-    } finally {
-      setIsLoading(false)
-    }
-  }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black p-4">
+    <div
+      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black p-4">
       <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        initial={{opacity: 0, y: -20}}
+        animate={{opacity: 1, y: 0}}
+        transition={{duration: 0.5}}
         className="bg-white/10 backdrop-blur-lg p-6 sm:p-10 rounded-2xl shadow-2xl text-center w-full max-w-md relative overflow-hidden"
       >
         <div className="flex flex-col items-center space-y-6 sm:space-y-8 relative z-10">
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <motion.div whileHover={{scale: 1.1}} whileTap={{scale: 0.9}}>
             <Image
               src="/Spotify_logo.png"
               alt="Spotify Logo"
@@ -80,8 +80,8 @@ export default function Home() {
             )}
           </select>
           <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{scale: 1.05}}
+            whileTap={{scale: 0.95}}
             className={`w-full bg-green-600 hover:bg-green-500 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-full font-semibold text-base sm:text-lg transition-all duration-300`}
             onClick={() => console.log('Gênero selecionado:', selectedGenre)}
           >
